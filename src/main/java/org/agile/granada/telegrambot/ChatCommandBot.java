@@ -13,52 +13,54 @@ import org.telegram.telegrambots.logging.BotLogger;
 
 public class ChatCommandBot extends TelegramLongPollingCommandBot {
 
-    public static final String LOGTAG = "CHATCOMMANDBOT";
+	public static final String LOGTAG = "CHATCOMMANDBOT";
 
-    public ChatCommandBot(IResponseGenerator responseGenerator) {
-        register(new ChatCommand(responseGenerator));
-        register(new StartCommand());
-        HelpCommand helpCommand = new HelpCommand(this);
-        register(helpCommand);
+	public ChatCommandBot(IResponseGenerator responseGenerator) {
+		register(new ChatCommand(responseGenerator));
+		register(new StartCommand());
+		HelpCommand helpCommand = new HelpCommand(this);
+		register(helpCommand);
 
-        registerDefaultAction((absSender, message) -> {
-            try {
-                SendMessage commandUnknownMessage = new SendMessage();
-                commandUnknownMessage.setChatId(message.getChatId().toString());
-                commandUnknownMessage.setText("El comando '" + message.getText() + "' no se reconoce: ");
-                absSender.sendMessage(commandUnknownMessage);
-            } catch (TelegramApiException e) {
-                BotLogger.error(LOGTAG, e);
-            }
-            helpCommand.execute(absSender, message.getFrom(), message.getChat(), new String[] {});
-        });
-    }
-
-    @Override
-    public void processNonCommandUpdate(Update update) {
-        if (update.hasMessage()) processMessage(update.getMessage());
-    }
-
-    private void processMessage(Message message) {
-        if (! message.hasText()) return;
-        
-        try {
-            SendMessage echoMessage = new SendMessage();
-            echoMessage.setChatId(message.getChatId().toString());
-            echoMessage.setText("Este es tu mensaje:\n" + message.getText());
-            sendMessage(echoMessage);
-        } catch (TelegramApiException e) {
-            BotLogger.error(LOGTAG, e);
-        }
+		registerDefaultAction((absSender, message) -> {
+			try {
+				SendMessage commandUnknownMessage = new SendMessage();
+				commandUnknownMessage.setChatId(message.getChatId().toString());
+				commandUnknownMessage.setText("El comando '" + message.getText() + "' no se reconoce: ");
+				absSender.sendMessage(commandUnknownMessage);
+			} catch (TelegramApiException e) {
+				BotLogger.error(LOGTAG, e);
+			}
+			helpCommand.execute(absSender, message.getFrom(), message.getChat(), new String[] {});
+		});
 	}
 
 	@Override
-    public String getBotUsername() {
-		return Config.getBotUsername();
-    }
+	public void processNonCommandUpdate(Update update) {
+		if (update.hasMessage())
+			processMessage(update.getMessage());
+	}
 
-    @Override
-    public String getBotToken() {
+	private void processMessage(Message message) {
+		if (!message.hasText())
+			return;
+
+		try {
+			SendMessage echoMessage = new SendMessage();
+			echoMessage.setChatId(message.getChatId().toString());
+			echoMessage.setText("Este es tu mensaje:\n" + message.getText());
+			sendMessage(echoMessage);
+		} catch (TelegramApiException e) {
+			BotLogger.error(LOGTAG, e);
+		}
+	}
+
+	@Override
+	public String getBotUsername() {
+		return Config.getBotUsername();
+	}
+
+	@Override
+	public String getBotToken() {
 		return Config.getBotToken();
-    }
+	}
 }

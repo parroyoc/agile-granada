@@ -10,12 +10,14 @@ import org.mockito.Mock;
 import org.telegram.telegrambots.api.objects.Update;
 
 public class ChatCommandBotTest {
-	
+
 	ChatCommandBot sut;
-	
-	@Mock Update update;
-	@Mock IResponseGenerator responseGenerator;
-	
+
+	@Mock
+	Update update;
+	@Mock
+	IResponseGenerator responseGenerator;
+
 	@Before
 	public void before() {
 		initMocks(this);
@@ -26,20 +28,20 @@ public class ChatCommandBotTest {
 	public void testBasicConstruction_RegistersThe3Commands() {
 		// setup
 		ChatCommandBot chatCommandBot;
-		
+
 		// execute
 		chatCommandBot = new ChatCommandBot(responseGenerator);
-		
+
 		// assert
 		assertEquals(3, chatCommandBot.getRegisteredCommands().size());
 	}
-	
+
 	@Test
 	public void testGetsBotTokenFromConfig() {
 		// assert
 		assertEquals(Config.getBotToken(), sut.getBotToken());
 	}
-	
+
 	@Test
 	public void testGetsBotUsernameFromConfig() {
 		// assert

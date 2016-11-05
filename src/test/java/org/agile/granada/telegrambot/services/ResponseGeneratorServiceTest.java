@@ -13,12 +13,14 @@ import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.User;
 
 public class ResponseGeneratorServiceTest {
-	
+
 	ResponseGeneratorService sut;
-	
-	@Mock User user;
-	@Mock Chat chat;
-	
+
+	@Mock
+	User user;
+	@Mock
+	Chat chat;
+
 	@Before
 	public void before() {
 		initMocks(this);
@@ -31,10 +33,10 @@ public class ResponseGeneratorServiceTest {
 	public void testAnswerJustTheName_WhenThereIsNoInputMessage() throws TelegramApiException {
 		// setup
 		String[] arguments = null;
-		
+
 		// execute
 		String answer = sut.answer(user, arguments);
-		
+
 		// assert
 		assertEquals("Hola Pablo Arroyo", answer);
 	}
@@ -43,10 +45,10 @@ public class ResponseGeneratorServiceTest {
 	public void testAnswerNoSeQueContestar_WhenThereIsInputMessage() throws TelegramApiException {
 		// setup
 		String[] arguments = { "algo", "de", "entrada" };
-		
+
 		// execute
 		String answer = sut.answer(user, arguments);
-		
+
 		// assert
 		assertTrue(answer.contains("Hola Pablo Arroyo"));
 		assertTrue(answer.contains("No tengo claro que contestar a:"));

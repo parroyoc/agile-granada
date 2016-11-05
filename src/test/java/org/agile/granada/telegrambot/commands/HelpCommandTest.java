@@ -25,14 +25,18 @@ import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.bots.commands.ICommandRegistry;
 
 public class HelpCommandTest {
-	
+
 	HelpCommand sut;
-	
-	@Mock ICommandRegistry commandRegistry;
-	@Mock AbsSender absSender;
-	@Mock User user;
-	@Mock Chat chat;
-	
+
+	@Mock
+	ICommandRegistry commandRegistry;
+	@Mock
+	AbsSender absSender;
+	@Mock
+	User user;
+	@Mock
+	Chat chat;
+
 	@Before
 	public void before() {
 		initMocks(this);
@@ -42,25 +46,25 @@ public class HelpCommandTest {
 	@Test
 	public void testBasicConstruction_InitialisesIdentifierAndDescription() {
 		// setup
-		HelpCommand helpCommand; // mejor ser explicito por claridad, an lugar de utilizar sut en este caso
-		
+		HelpCommand helpCommand;
+
 		// execute
 		helpCommand = new HelpCommand(commandRegistry);
-		
+
 		// assert
 		assertEquals(HelpCommand.HELP_IDENTIFIER, helpCommand.getCommandIdentifier());
 		assertEquals(HelpCommand.HELP_DESCRIPTION, helpCommand.getDescription());
 	}
-	
+
 	@Test
 	public void testExecute_SendsAMessageToTheAppropiateChatAndUser() throws TelegramApiException {
 		// setup
 		setUpUserAndChat("Pablo", "Arroyo", 12345L);
 		when(((Message) absSender.sendMessage(anyObject()))).thenReturn(new Message());
-		
+
 		// execute
 		sut.execute(absSender, user, chat, null);
-		
+
 		// assert
 		ArgumentCaptor<SendMessage> captor = ArgumentCaptor.forClass(SendMessage.class);
 		verify(absSender, times(1)).sendMessage(captor.capture());
@@ -78,10 +82,10 @@ public class HelpCommandTest {
 		commands.add(createBotCommand("id1", "description1"));
 		commands.add(createBotCommand("id2", "description2"));
 		when(commandRegistry.getRegisteredCommands()).thenReturn(commands);
-		
+
 		// execute
 		sut.execute(absSender, user, chat, null);
-		
+
 		// assert
 		ArgumentCaptor<SendMessage> captor = ArgumentCaptor.forClass(SendMessage.class);
 		verify(absSender, times(1)).sendMessage(captor.capture());
@@ -103,7 +107,8 @@ public class HelpCommandTest {
 	private BotCommand createBotCommand(String id, String desc) {
 		return new BotCommand(id, desc) {
 			@Override
-			public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {}
+			public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
+			}
 		};
 	}
 }

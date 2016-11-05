@@ -17,13 +17,16 @@ import org.telegram.telegrambots.api.objects.User;
 import org.telegram.telegrambots.bots.AbsSender;
 
 public class StartCommandTest {
-	
+
 	StartCommand sut;
-	
-	@Mock AbsSender absSender;
-	@Mock User user;
-	@Mock Chat chat;
-	
+
+	@Mock
+	AbsSender absSender;
+	@Mock
+	User user;
+	@Mock
+	Chat chat;
+
 	@Before
 	public void before() {
 		initMocks(this);
@@ -33,16 +36,16 @@ public class StartCommandTest {
 	@Test
 	public void testBasicConstruction_InitialisesIdentifierAndDescription() {
 		// setup
-		StartCommand startCommand; // mejor ser explicito por claridad, an lugar de utilizar sut en este caso
-		
+		StartCommand startCommand; // mejor ser explicitos en este caso
+
 		// execute
 		startCommand = new StartCommand();
-		
+
 		// assert
 		assertEquals(StartCommand.HELLO_IDENTIFIER, startCommand.getCommandIdentifier());
 		assertEquals(StartCommand.HELLO_DESCRIPTION, startCommand.getDescription());
 	}
-	
+
 	@Test
 	public void testExecute_SendsACorrectMessageToTheAppropiateChatAndUser() throws TelegramApiException {
 		// setup
@@ -50,10 +53,10 @@ public class StartCommandTest {
 		when(user.getFirstName()).thenReturn("Pablo");
 		when(user.getLastName()).thenReturn("Arroyo");
 		when(((Message) absSender.sendMessage(anyObject()))).thenReturn(new Message());
-		
+
 		// execute
 		sut.execute(absSender, user, chat, null);
-		
+
 		// assert
 		ArgumentCaptor<SendMessage> captor = ArgumentCaptor.forClass(SendMessage.class);
 		verify(absSender, times(1)).sendMessage(captor.capture());

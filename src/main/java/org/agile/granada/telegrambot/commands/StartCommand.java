@@ -10,33 +10,33 @@ import org.telegram.telegrambots.logging.BotLogger;
 
 public class StartCommand extends BotCommand {
 
-    public static final String LOGTAG = "STARTCOMMAND";
+	public static final String LOGTAG = "STARTCOMMAND";
 	public static final String HELLO_IDENTIFIER = "start";
 	public static final String HELLO_MESSAGE = "Este es un bot de prueba para Agile Granada. Escribe /chat 'algun texto' para que te responda";
 	public static final String HELLO_DESCRIPTION = "Este comando arranca el bot";
 
-    public StartCommand() {
-        super(HELLO_IDENTIFIER, HELLO_DESCRIPTION);
-    }
+	public StartCommand() {
+		super(HELLO_IDENTIFIER, HELLO_DESCRIPTION);
+	}
 
-    @Override
-    public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
-        try {
-            SendMessage answer = new SendMessage();
-            answer.setChatId(chat.getId().toString());
-            answer.setText(getStartMessage(user));
-            absSender.sendMessage(answer);
-        } catch (TelegramApiException e) {
-            BotLogger.error(LOGTAG, e);
-        }
-    }
+	@Override
+	public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
+		try {
+			SendMessage answer = new SendMessage();
+			answer.setChatId(chat.getId().toString());
+			answer.setText(getStartMessage(user));
+			absSender.sendMessage(answer);
+		} catch (TelegramApiException e) {
+			BotLogger.error(LOGTAG, e);
+		}
+	}
 
 	private String getStartMessage(User user) {
-        StringBuilder messageBuilder = new StringBuilder();
+		StringBuilder messageBuilder = new StringBuilder();
 
-        String userName = user.getFirstName() + " " + user.getLastName();
-        messageBuilder.append("Hola ").append(userName).append(".\n");
-        messageBuilder.append(HELLO_MESSAGE);
+		String userName = user.getFirstName() + " " + user.getLastName();
+		messageBuilder.append("Hola ").append(userName).append(".\n");
+		messageBuilder.append(HELLO_MESSAGE);
 		return messageBuilder.toString();
 	}
 }
