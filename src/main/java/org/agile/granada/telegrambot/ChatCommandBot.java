@@ -21,10 +21,10 @@ public class ChatCommandBot extends TelegramLongPollingCommandBot {
         register(helpCommand);
 
         registerDefaultAction((absSender, message) -> {
-            SendMessage commandUnknownMessage = new SendMessage();
-            commandUnknownMessage.setChatId(message.getChatId().toString());
-            commandUnknownMessage.setText("El comando '" + message.getText() + "' no se reconoce. Aqui tienes la ayuda: ");
             try {
+                SendMessage commandUnknownMessage = new SendMessage();
+                commandUnknownMessage.setChatId(message.getChatId().toString());
+                commandUnknownMessage.setText("El comando '" + message.getText() + "' no se reconoce: ");
                 absSender.sendMessage(commandUnknownMessage);
             } catch (TelegramApiException e) {
                 BotLogger.error(LOGTAG, e);
@@ -35,31 +35,29 @@ public class ChatCommandBot extends TelegramLongPollingCommandBot {
 
     @Override
     public void processNonCommandUpdate(Update update) {
-
-        if (update.hasMessage()) {
-            Message message = update.getMessage();
-
-            if (message.hasText()) {
-                SendMessage echoMessage = new SendMessage();
-                echoMessage.setChatId(message.getChatId().toString());
-                echoMessage.setText("Hey heres your message:\n" + message.getText());
-
-                try {
-                    sendMessage(echoMessage);
-                } catch (TelegramApiException e) {
-                    BotLogger.error(LOGTAG, e);
-                }
-            }
-        }
+        if (update.hasMessage()) processMessage(update.getMessage());
     }
 
-    @Override
+    private void processMessage(Message message) {
+        if (! message.hasText()) return;
+        
+        try {
+            SendMessage echoMessage = new SendMessage();
+            echoMessage.setChatId(message.getChatId().toString());
+            echoMessage.setText("Este es tu mensaje:\n" + message.getText());
+            sendMessage(echoMessage);
+        } catch (TelegramApiException e) {
+            BotLogger.error(LOGTAG, e);
+        }
+	}
+
+	@Override
     public String getBotUsername() {
-    	return "AgileGranada0_bot"; //System.getenv("BOT_USERNAME");
+		return Config.getBotUsername();
     }
 
     @Override
     public String getBotToken() {
-    	return "276518186:AAGk1DsJy3Ef0IlmZLoXKnwQKOrtwf5BzNs";// System.getenv("BOT_TOKEN");
+		return Config.getBotToken();
     }
 }

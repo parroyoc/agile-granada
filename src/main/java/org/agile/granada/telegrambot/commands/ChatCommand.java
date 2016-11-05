@@ -19,12 +19,10 @@ public class ChatCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
-
-        SendMessage answer = new SendMessage();
-        answer.setChatId(chat.getId().toString());
-        answer.setText(ResponseGeneratorService.answer(user, arguments));
-
         try {
+            SendMessage answer = new SendMessage();
+            answer.setChatId(chat.getId().toString());
+            answer.setText(ResponseGeneratorService.answer(user, arguments));
             absSender.sendMessage(answer);
         } catch (TelegramApiException e) {
             BotLogger.error(LOGTAG, e);

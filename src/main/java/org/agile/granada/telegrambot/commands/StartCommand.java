@@ -18,21 +18,22 @@ public class StartCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
-        StringBuilder messageBuilder = new StringBuilder();
-
-        String userName = user.getFirstName() + " " + user.getLastName();
-
-        messageBuilder.append("Hola ").append(userName).append(".\n");
-        messageBuilder.append("Este es un bot de prueba para Agile Granada. Escribe /chat 'algun texto' para que te responda");
-
-        SendMessage answer = new SendMessage();
-        answer.setChatId(chat.getId().toString());
-        answer.setText(messageBuilder.toString());
-
         try {
+            SendMessage answer = new SendMessage();
+            answer.setChatId(chat.getId().toString());
+            answer.setText(getStartMessage(user));
             absSender.sendMessage(answer);
         } catch (TelegramApiException e) {
             BotLogger.error(LOGTAG, e);
         }
     }
+
+	private String getStartMessage(User user) {
+        StringBuilder messageBuilder = new StringBuilder();
+
+        String userName = user.getFirstName() + " " + user.getLastName();
+        messageBuilder.append("Hola ").append(userName).append(".\n");
+        messageBuilder.append("Este es un bot de prueba para Agile Granada. Escribe /chat 'algun texto' para que te responda");
+		return messageBuilder.toString();
+	}
 }
