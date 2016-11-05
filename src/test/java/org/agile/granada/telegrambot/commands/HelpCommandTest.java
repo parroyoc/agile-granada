@@ -1,4 +1,4 @@
-package org.agile.granada.telegrambot;
+package org.agile.granada.telegrambot.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

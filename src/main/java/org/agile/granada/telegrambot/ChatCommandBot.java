@@ -3,6 +3,7 @@ package org.agile.granada.telegrambot;
 import org.agile.granada.telegrambot.commands.ChatCommand;
 import org.agile.granada.telegrambot.commands.HelpCommand;
 import org.agile.granada.telegrambot.commands.StartCommand;
+import org.agile.granada.telegrambot.services.IResponseGenerator;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
@@ -14,8 +15,8 @@ public class ChatCommandBot extends TelegramLongPollingCommandBot {
 
     public static final String LOGTAG = "CHATCOMMANDBOT";
 
-    public ChatCommandBot() {
-        register(new ChatCommand());
+    public ChatCommandBot(IResponseGenerator responseGenerator) {
+        register(new ChatCommand(responseGenerator));
         register(new StartCommand());
         HelpCommand helpCommand = new HelpCommand(this);
         register(helpCommand);

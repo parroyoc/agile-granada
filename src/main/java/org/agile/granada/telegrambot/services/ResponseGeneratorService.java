@@ -2,8 +2,9 @@ package org.agile.granada.telegrambot.services;
 
 import org.telegram.telegrambots.api.objects.User;
 
-public class ResponseGeneratorService {
-	public static String answer(User user, String[] arguments) {
+public class ResponseGeneratorService implements IResponseGenerator {
+	
+	public String answer(User user, String[] arguments) {
         String userName = user.getFirstName() + " " + user.getLastName();
 
         StringBuilder messageTextBuilder = new StringBuilder("Hola ").append(userName);

@@ -1,5 +1,6 @@
 package org.agile.granada.telegrambot;
 
+import org.agile.granada.telegrambot.services.ResponseGeneratorService;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.logging.BotLogger;
 import org.telegram.telegrambots.logging.BotsFileHandler;
@@ -16,7 +17,7 @@ public class Main {
         try {
             BotLogger.registerLogger(new BotsFileHandler());
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-            telegramBotsApi.registerBot(new ChatCommandBot());
+            telegramBotsApi.registerBot(new ChatCommandBot(new ResponseGeneratorService()));
         } catch (Exception e) {
             BotLogger.error(LOGTAG, e);
         }
