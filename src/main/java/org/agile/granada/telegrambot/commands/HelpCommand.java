@@ -12,11 +12,14 @@ import org.telegram.telegrambots.logging.BotLogger;
 public class HelpCommand extends BotCommand {
 
     private static final String LOGTAG = "HELPCOMMAND";
+	public static final String HELP_IDENTIFIER = "help";
+	public static final String HELP_DESCRIPTION = "Muestra todos los comandos";
+	public static final String HELP_LIST_HEADER = "<b>Help</b>\nEstos son los comandos registrados:\n\n";
 
     private final ICommandRegistry commandRegistry;
 
     public HelpCommand(ICommandRegistry commandRegistry) {
-        super("help", "Muestra todos los comandos");
+        super(HELP_IDENTIFIER, HELP_DESCRIPTION);
         this.commandRegistry = commandRegistry;
     }
 
@@ -34,8 +37,7 @@ public class HelpCommand extends BotCommand {
     }
 
 	private String getHelpMessage() {
-        StringBuilder helpMessageBuilder = new StringBuilder("<b>Help</b>\n");
-        helpMessageBuilder.append("Estos son los comandos registrados:\n\n");
+        StringBuilder helpMessageBuilder = new StringBuilder(HELP_LIST_HEADER);
 
         for (BotCommand botCommand : commandRegistry.getRegisteredCommands()) {
             helpMessageBuilder.append(botCommand.toString()).append("\n\n");

@@ -11,9 +11,12 @@ import org.telegram.telegrambots.logging.BotLogger;
 public class StartCommand extends BotCommand {
 
     public static final String LOGTAG = "STARTCOMMAND";
+	public static final String HELLO_IDENTIFIER = "start";
+	public static final String HELLO_MESSAGE = "Este es un bot de prueba para Agile Granada. Escribe /chat 'algun texto' para que te responda";
+	public static final String HELLO_DESCRIPTION = "Este comando arranca el bot";
 
     public StartCommand() {
-        super("start", "Este comando arranca el bot");
+        super(HELLO_IDENTIFIER, HELLO_DESCRIPTION);
     }
 
     @Override
@@ -33,7 +36,7 @@ public class StartCommand extends BotCommand {
 
         String userName = user.getFirstName() + " " + user.getLastName();
         messageBuilder.append("Hola ").append(userName).append(".\n");
-        messageBuilder.append("Este es un bot de prueba para Agile Granada. Escribe /chat 'algun texto' para que te responda");
+        messageBuilder.append(HELLO_MESSAGE);
 		return messageBuilder.toString();
 	}
 }
