@@ -1,5 +1,9 @@
-# agile-granada
+#Agile Granada Bot
 
-BOT para Telegram como base de estudio para Agile Granada
+##Description
+Robot para Agile Granada, como base para ejercicios
 
-Contiene un ChatCommandBot que responde a los comandos /start, /help y /chat. Este último genera una respuesta en función de cierta lógica de negocio que se probará durante el taller.
+##Uso
+mvn clean package
+java -DBOT_USERNAME=AgileGranada0_bot -DBOT_TOKEN="TOKEN" -jar target/org.agile.granada.telegrambot-1.0.jar
+
