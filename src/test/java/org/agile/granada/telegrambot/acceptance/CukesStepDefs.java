@@ -29,12 +29,12 @@ public class CukesStepdefs {
 
     @When("^I ask the bot for the temperature in that city$")
     public void I_ask_the_bot_for_the_temperature_in_that_city() throws Throwable {
-        response = ChatCommandBotClient.chat(user, "temperatura en " + city);
+        response = ChatCommandBotClient.chat(user, "temperatura " + city);
     }
 
     @Then("^The bot replies with a message indicating the temperature in the city$")
     public void The_bot_replies_with_a_message_indicating_the_temperature_in_the_city() throws Throwable {
-        assertTrue(response.startsWith("la temperatura en " + city + " es"));
+        assertTrue(response.contains("La temperatura en " + city + " es de"));
         assertTrue(response.contains("grados"));
     }
 
