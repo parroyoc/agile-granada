@@ -1,6 +1,5 @@
 package org.agile.granada.telegrambot.acceptance;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -10,7 +9,7 @@ import org.telegram.telegrambots.api.objects.User;
 
 import static org.junit.Assert.assertTrue;
 
-public class CukesStepdefs {
+public class CukesStepDefs {
 
     private static final String MENSAJE_DESCONOCIDO = "mensaje desconocido";
     private String city;

@@ -22,9 +22,11 @@ public class WeatherClient {
     private String extractFieldFromJson(String response, String field) {
         try {
             JSONObject json = new JSONObject(response);
+            System.out.println("respuesta " + response);
             Object value = ((org.json.JSONObject)json.get("data")).get(field);
             return value.toString();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return "Unknown";
         }
     }

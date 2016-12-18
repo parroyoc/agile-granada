@@ -21,8 +21,12 @@ public class ResponseGeneratorService implements IResponseGenerator {
 
 		StringBuilder messageTextBuilder = new StringBuilder("Hola ").append(userName);
 
-		String command = argument.substring(0, argument.indexOf(' '));
-		String rest = argument.substring(argument.indexOf(' ') + 1);
+		String command = argument;
+		String rest = "";
+		if (argument.indexOf(' ') > 0) {
+			command = argument.substring(0, argument.indexOf(' '));
+			rest = argument.substring(argument.indexOf(' ') + 1);
+		}
 		IDelegateService delegateService = delegates.get(command);
 
 		if (delegateService != null) messageTextBuilder.append(delegateService.answer(rest));
