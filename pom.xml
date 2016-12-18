@@ -41,6 +41,18 @@
 		    <artifactId>mockito-all</artifactId>
 		    <version>1.9.5</version>
 		</dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>1.2.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>1.2.4</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <directory>${project.basedir}/target</directory>

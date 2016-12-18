@@ -55,4 +55,17 @@ public class ResponseGeneratorServiceTest {
 		assertTrue(answer.contains("algo de entrada"));
 	}
 
+	@Test
+	public void testAnswerToASingleLine_WhenThereIsInputMessage() throws TelegramApiException {
+		// setup
+		String argument = "algo de entrada";
+
+		// execute
+		String answer = sut.answer(user, argument);
+
+		// assert
+		assertTrue(answer.contains("Hola Pablo Arroyo"));
+		assertTrue(answer.contains("No tengo claro que contestar a:"));
+		assertTrue(answer.contains("algo de entrada"));
+	}
 }
